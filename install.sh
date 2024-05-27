@@ -20,7 +20,7 @@ read -r DEVICE
 mount "${DEVICE}2" /mnt
 
 # create boot directory
-mkdir -p /mnt/boot
+mkdir -p /mnt/boot/efi
 
 # mount efi partition
 mount "${DEVICE}1" /mnt/boot/efi
