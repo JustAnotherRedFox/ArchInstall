@@ -11,10 +11,10 @@ echo -n "enter device name:"
 read -r DEVICE
 
 # format efi partition
-mkfs.fat -F32 "${DEVICE}1"
+#mkfs.fat -F32 "${DEVICE}1"
 
 # format linux partition
-mkfs.ext4 "${DEVICE}2"
+#mkfs.ext4 "${DEVICE}2"
 
 # mount linux partition
 mount "${DEVICE}2" /mnt
@@ -25,8 +25,22 @@ mkdir -p /mnt/boot
 # mount efi partition
 mount "${DEVICE}1" /mnt/boot
 
+#-----------------------------
+# Updating Mirror List
+#----------------------------
+reflector \
+	--country Canada,Brazil \
+	--age 12 \
+	--protocol https \
+	--fastest 5 \
+	--latest 20 \
+	--sort rate \
+	--save /etc/pacman.d/mirrorlist
+
+ pacman -Syy
+
 # install necessary package
-pacstrap /mnt base base-devel linux linux-firmware grub efibootmgr sudo os-prober
+pacstrap /mnt base base-devel linux linux-lts linux-firmware grub efibootmgr sudo os-prober intel-ucode
 
 # Generate an fstab config
 genfstab -U /mnt >> /mnt/etc/fstab
