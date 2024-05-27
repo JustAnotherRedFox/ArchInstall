@@ -24,6 +24,27 @@ cat >> /etc/hosts << EOF
 127.0.1.1	JustAFox.localdomain	JustAFox
 EOF
 
+#---------------------------------------------------
+# GRUB/Bootloader
+#---------------------------------------------------
+
+pacman -S --noconfirm --needed grub efibootmgr base-devel linux-lts-headers networkmanager network-manager-applet
+
+
+
+
+grub-install --target=x86_64-efi --bootloader-id=Arch --efi-directory=/boot/efi
+ 
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
+
+
+
+
+
+
 # set root password
 passwd
 
