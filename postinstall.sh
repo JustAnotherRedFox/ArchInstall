@@ -1,5 +1,100 @@
 #!/usr/bin/env bash
 
+#-----------------------------------
+# Local Time and Hosts
+#---------------------------------
+
+# set local zone
+ln -sf /usr/share/zoneinfo/America/Bahia /etc/localtime
+hwclock --systohc
+
+# generate locale conf
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen 
+locale-gen
+cat >> /etc/locale.conf << EOF
+LANG=en_US.UTF-8
+EOF
+
+# set host name
+echo "JustAFox" > /etc/hostname
+
+cat >> /etc/hosts << EOF
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	JustAFox.localdomain	JustAFox
+EOF
+
+# set root password
+passwd
+
+
+# nvim /etc/pacman.conf
+
+# adding to mirror list to allow use of 32bit app on 64bit app
+echo "[multilib]" >> /etc/pacman.conf
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
+# add mirrorlist for Arch User Repositories(AUR)
+echo "[archlinuxfr]" >> /etc/pacman.conf
+echo "SigLevel = Never" >> /etc/pacman.conf
+echo "Server = http://repo.archlinux.fr/$arch" >> /etc/pacman.conf
+
+# update all packeges
+pacman -Syu
+
+
+
+# install and configure grub
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
+# Create user account
+useradd -m -g users -G wheel JustAFox
+
+# setting password for user
+passwd JustAFox
+
+# adding users to list of sudo
+echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+# unmount partitions
+umount /mnt/boot /mnt
+
+echo "Please reboot the device and execute postinstall.sh"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #=============================================
 #   XORG COMPONENTS
 #=============================================
