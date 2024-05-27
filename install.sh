@@ -44,7 +44,7 @@ reflector \
 #-----------------------------------
 
 # install necessary package
-pacstrap /mnt base base-devel linux linux-lts linux-firmware grub efibootmgr sudo os-prober intel-ucode
+pacstrap /mnt base linux linux-lts linux-firmware intel-ucode
 
 # Generate an fstab config
 genfstab -U /mnt >> /mnt/etc/fstab
