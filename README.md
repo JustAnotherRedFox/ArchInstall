@@ -31,12 +31,8 @@ Partition   |  Size  |  Format
 > mkswap /dev/sda3
 > swapon /dev/sda3
 
-## Update Mirror List
-- Open the mirror list and uncomment only the server of your country/region
-> vim /etc/pacman.d/mirrorlist
+## Execute scripts
+cd ArchInstall/
+./install.sh
 
-- make a backup of the mirror list
-> sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-
-- take the server data from the backup mirrorlist, rank them, then copy the data to the original mirrorlist file
-> rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+> arch-chroot /mnt /root/postinstall.sh
