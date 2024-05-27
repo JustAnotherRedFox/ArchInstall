@@ -23,7 +23,7 @@ mount "${DEVICE}2" /mnt
 mkdir -p /mnt/boot
 
 # mount efi partition
-mount "${DEVICE}1" /mnt/boot
+mount "${DEVICE}1" /mnt/boot/efi
 
 #-----------------------------
 # Updating Mirror List
