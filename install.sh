@@ -26,7 +26,7 @@ mkdir -p /mnt/boot
 mount "${DEVICE}1" /mnt/boot
 
 # install necessary package
-pacstrap /mnt base base-devel intel-ucode linux linux-firmware linux-headers linux-lts linux-lts-headers grub efibootmgr sudo
+pacstrap /mnt base base-devel linux linux-firmware grub efibootmgr sudo os-prober
 
 # Generate an fstab config
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -34,8 +34,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # change root into new system
 arch-chroot /mnt
 
-# adding users to list of sudo
-echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
 
 # uncomment locale setting
 sed -i -e 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|' /etc/locale.gen 
@@ -59,7 +58,7 @@ echo "127.0.1.1     JustAFox.localdomain   JustAFox" >> /etc/hosts
 passwd
 
 
-> nvim /etc/pacman.conf
+# nvim /etc/pacman.conf
 
 # adding to mirror list to allow use of 32bit app on 64bit app
 echo "[multilib]" >> /etc/pacman.conf
@@ -86,6 +85,9 @@ useradd -m -g users -G wheel JustAFox
 
 # setting password for user
 passwd JustAFox
+
+# adding users to list of sudo
+echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 # unmount partitions
 umount /mnt/boot /mnt
