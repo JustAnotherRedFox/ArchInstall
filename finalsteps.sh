@@ -170,7 +170,7 @@ echo "Done!"
 echo
 
 # move to /Home and cloning git repository with Dotfiles
-git clone https://github.com/JustAnotherRedFox/.config.git ~/
+git clone https://github.com/JustAnotherRedFox/.config.git ~/.config
 
 # MOVING ALL CONFIG FROM GIT REPO TO MACHINE
 # [Creating Symbolic Links]
