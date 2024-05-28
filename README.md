@@ -31,12 +31,15 @@ Partition   |  Size  |  Format
 > mkswap /dev/sda3
 > swapon /dev/sda3
 
-## Execute scripts
-cd ArchInstall/
-./install.sh
+## Execute Install script
+sh ArchInstall/install.sh
 
 - initiate the second part - the post install
-> arch-chroot /mnt /root/postinstall.sh
+- change to chroot
+> arch-chroot /mnt
+
+- as chroot execute the postinstall script
+> sh /root/postinstall.sh
 
 - exit and umnount chroot
 > exit
