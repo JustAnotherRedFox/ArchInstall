@@ -16,7 +16,7 @@ PKGS=(
 
 for PKG in "${PKGS[@]}"; do
     echo "INSTALLING: ${PKG}"
-    sudo pacman -S "$PKG" --noconfirm --needed
+    pacman -S "$PKG" --noconfirm --needed
 done
 
 echo
@@ -38,7 +38,7 @@ PKGS=(
 
 for PKG in "${PKGS[@]}"; do
     echo "INSTALLING: ${PKG}"
-    sudo pacman -S "$PKG" --noconfirm --needed
+    pacman -S "$PKG" --noconfirm --needed
 done
 
 echo
@@ -62,7 +62,7 @@ PKGS=(
 
 for PKG in "${PKGS[@]}"; do
     echo "INSTALLING: ${PKG}"
-    sudo pacman -S "$PKG" --noconfirm --needed
+    pacman -S "$PKG" --noconfirm --needed
 done
 
 # enable NetworkManager systemd service
@@ -89,7 +89,7 @@ PKGS=(
 
 for PKG in "${PKGS[@]}"; do
     echo "INSTALLING ${PKG}"
-    sudo pacman -S "$PKG" --noconfirm --needed
+    pacman -S "$PKG" --noconfirm --needed
 done
 
 echo
@@ -162,7 +162,7 @@ PKGS=(
 
 for PKG in "${PKGS[@]}"; do
     echo "INSTALLING: ${PKG}"
-    sudo pacman -S "$PKG" --noconfirm --needed
+    pacman -S "$PKG" --noconfirm --needed
 done
 
 echo
@@ -170,8 +170,7 @@ echo "Done!"
 echo
 
 # move to /Home and cloning git repository with Dotfiles
-cd ~/
-git clone https://github.com/JustAnotherRedFox/.config.git
+git clone https://github.com/JustAnotherRedFox/.config.git ~/
 
 # MOVING ALL CONFIG FROM GIT REPO TO MACHINE
 # [Creating Symbolic Links]
