@@ -38,10 +38,6 @@ cd ArchInstall/
 - initiate the second part - the post install
 > arch-chroot /mnt /root/postinstall.sh
 
-- set user password and root password
-passwd
-passwd JustAFox
-
 - exit and umnount chroot
 > exit
 > umount -R /mnt
