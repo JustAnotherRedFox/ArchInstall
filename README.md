@@ -41,12 +41,11 @@ sh ArchInstall/install.sh
 - as chroot execute the postinstall script
 > sh /root/postinstall.sh
 
+- as chroot execute final steps script
+> sh /root/finalsteps.sh
+
 - exit and umnount chroot
 > exit
 > umount -R /mnt
 
 - restart the computer
-- login
-- enter root and execute finalsteps
-sudo su
-./finalsteps.sh
