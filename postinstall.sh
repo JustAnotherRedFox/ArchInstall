@@ -36,6 +36,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # Setting User
 #--------------------------------------------------
 
+# setting Root Password
+passwd
+
 # Create user account
 useradd -m -g users -G wheel JustAFox
 
