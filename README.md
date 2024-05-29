@@ -15,12 +15,12 @@
 - initiate 'cfdisk' on disk (it could be: sda, sdb, nvml01, etc)
 > cfdisk /dev/sda
 
-- Create partitions using cfdisk
-partition type: gpt
-Partition   |  Size  |  Format
-  Boot      | 512M   | EFI System
-  Swap      | 2x ram | Linux Swap (optional)
-  /         | all    | Linux Filesystem
+- Create partitions using cfdisk:
+- partition type: gpt
+- Partition   |  Size  |  Format
+- Boot        | 512M   | EFI System
+- Swap        | 2x ram | Linux Swap (optional)
+- /           | all    | Linux Filesystem
 - Write disk modifications and quit
   
 # Manual Format Partition 
@@ -40,6 +40,9 @@ sh ArchInstall/install.sh
 
 - as chroot execute the postinstall script
 > sh /root/postinstall.sh
+
+- copy finalsteps script to users home dir.
+> cp /root/finalsteps.sh /home/**/
 
 - exit and umnount chroot
 > exit
