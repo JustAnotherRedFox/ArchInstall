@@ -52,4 +52,4 @@ sh ArchInstall/install.sh
 
 - login as User
 - execute final steps script
-sh ~/finalsteps.sh
+> sh ~/finalsteps.sh
