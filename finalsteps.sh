@@ -169,6 +169,8 @@ echo
 echo "Done!"
 echo
 
+xinit
+
 # move to /Home and cloning git repository with Dotfiles
 git clone https://github.com/JustAnotherRedFox/.config.git ~/.config
 
