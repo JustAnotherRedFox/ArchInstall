@@ -56,8 +56,8 @@ PKGS=(
         'dialog'                    # Enables shell scripts to trigger dialog boxex
         'networkmanager'            # Network connection manager
         'network-manager-applet'    # System tray icon/utility for network connectivity
-        'dhclient'                  # DHCP client
-        'libsecret'                 # Library for storing passwords
+        #'dhclient'                  # DHCP client
+        #'libsecret'                 # Library for storing passwords
 )
 
 for PKG in "${PKGS[@]}"; do
@@ -83,8 +83,8 @@ PKGS=(
             'alsa-plugins'      # ALSA plugins
             'pulseaudio'        # Pulse Audio sound components
             'pulseaudio-alsa'   # ALSA configuration for pulse audio
-            'pavucontrol'       # Pulse Audio volume control
-            'volumeicon'        # System tray volume control
+            #'pavucontrol'       # Pulse Audio volume control
+            #'volumeicon'        # System tray volume control
 )
 
 for PKG in "${PKGS[@]}"; do
@@ -107,7 +107,7 @@ PKGS=(
 
     # SYSTEM --------------------------------------------------------------
 
-    'linux-lts'             # Long term support kernel
+    #'linux-lts'             # Long term support kernel
     'ttf-fira-code'         # system font 
     'ttf-font-awesome'      # system fonts
 
@@ -145,7 +145,7 @@ PKGS=(
     'php-apache'            # Apache PHP driver
     'python'                # Scripting language
     'yarn'                  # Dependency management (Hyper needs this)
-    'visual-studio-code-bin'
+    'visual-studio-code-bin'# Visual Studio Code
 
     # WEB TOOLS -----------------------------------------------------------
 
@@ -153,11 +153,11 @@ PKGS=(
 
     # MEDIA ---------------------------------------------------------------
 
-    'lollypop'              # Music player
+    #'lollypop'              # Music player
 
     # GRAPHICS AND DESIGN -------------------------------------------------
 
-    'imagemagick'           # Command line image manipulation tool
+    #'imagemagick'           # Command line image manipulation tool
 )
 
 for PKG in "${PKGS[@]}"; do
