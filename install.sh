@@ -28,15 +28,15 @@ mount "${DEVICE}1" /mnt/boot/efi
 #-----------------------------
 # Updating Mirror List
 #----------------------------
-reflector \
-	--country Canada,Brazil \
-	--age 12 \
-	--protocol https \
-	--fastest 5 \
-	--latest 20 \
-	--sort rate \
-	--save /etc/pacman.d/mirrorlist
-
+#reflector \
+#	--country Canada,Brazil \
+#	--age 12 \
+#	--protocol https \
+#	--fastest 5 \
+#	--latest 20 \
+#	--sort rate \
+#	--save /etc/pacman.d/mirrorlist
+#
  pacman -Syy
 
 #-----------------------------------
@@ -44,7 +44,7 @@ reflector \
 #-----------------------------------
 
 # install necessary package
-pacstrap /mnt base linux linux-lts linux-firmware intel-ucode
+pacstrap /mnt base linux linux-firmware
 
 # Generate an fstab config
 genfstab -U /mnt >> /mnt/etc/fstab
