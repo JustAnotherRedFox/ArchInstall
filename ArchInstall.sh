@@ -16,7 +16,7 @@ pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Change Root into new system
-arch-chroot /mnt
+arch-chroot /mnt # The Comand Stop The Execution Of THe Script
 ln -sf /usr/share/zoneinfo/America/Bahia /etc/localtime
 
 # Date and locale Setup
