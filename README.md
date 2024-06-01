@@ -34,8 +34,9 @@ sh ArchInstall/ArchInstall.sh
 
 - restart the computer
 - login as User
-- 
+
 - execute final steps script
+> sudo cp /root/ArchPostinstall.sh ~/
 > sh ~/ArchPostinstall.sh
 > xinit
 > startx
