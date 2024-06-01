@@ -3,32 +3,8 @@
 # set the system clock
 timedatectl set-ntp true
 
-#* > fdisk -l
-#    * list disk and partitions
-# > cfdisk /dev/sda
-#    * select 'sda' as device to formatation and use
-#    * enter 'gpt' for UEFI systems
-#    * Partitions:
-#        * EFI     | 512MiB ~ 1GiB   | Efi System
-#        * Swap    | 2GiB ~ 4GiB     | Linux Swap  | Opcional
-#        * /       | Everythin else  | Linux Filesystem     
-#    * White all changes and quit
-
-* > mkfs.fat -F32 /dev/sda1
-    * format and create the efi partitions
-* > mkswap /dev/sda2
-    * create swap file
-* > swapon /dev/sda2
-    * activate swap file
-* > mkfs.ext4 /dev/sda3
-    * format and create in format ext4 partiton /
-* > mkfs.ext4 /dev/sda4
-    * format and create in format ext4 partiton /home
-
 # Mount the / partition in /mnt
 mount /dev/sda3 /mnt
-
-pacman -Sy git
 
 # edit the pacman.conf file to enable multilib repository(used to run 32-bits software and libraries)
 echo "[multilib]" >> /etc/pacman.conf
