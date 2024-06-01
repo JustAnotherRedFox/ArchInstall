@@ -25,31 +25,17 @@
   
 # Manual Format Partition 
 > mkfs.fat -F32 /dev/sda1
-> mkfs.ext4 /dev/sda2
-
-- if using swap
-> mkswap /dev/sda3
-> swapon /dev/sda3
+> mkswap /dev/sda2
+> swapon /dev/sda2
+> mkfs.ext4 /dev/sda3
 
 ## Execute Install script
-sh ArchInstall/install.sh
-
-- initiate the second part - the post install
-- change to chroot
-> arch-chroot /mnt
-
-- as chroot execute the postinstall script
-> sh /root/postinstall.sh
-
-- copy finalsteps script to users home dir.
-> cp /root/finalsteps.sh /home/**/
-
-- exit and umnount chroot
-> exit
-> umount -R /mnt
+sh ArchInstall/ArchInstall.sh
 
 - restart the computer
-
 - login as User
+- 
 - execute final steps script
-> sh ~/finalsteps.sh
+> sh ~/ArchPostinstall.sh
+> xinit
+> startx
