@@ -79,7 +79,7 @@ useradd -m -g users -G wheel JustAFox
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 passwd JustAFox
 
-cp -a *.sh /mnt/root/
+cp ./ArchPostinstall.sh /mnt/root/
 
 # Exiting and Rebooting System
 exit
