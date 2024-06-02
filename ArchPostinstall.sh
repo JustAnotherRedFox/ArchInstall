@@ -7,39 +7,10 @@ Sudo pacman -Syu
 sudo pacman -S noto-fonts ttf-ubuntu-font-family ttf-fira-code ttf-font-awesome --needed --noconfirm
 
 # Environment
-sudo pacman -S \ 
-    xf86-video-intel \      # Intel Video Driver
-    xorg-server \           # XOrg Server 
-    xorg-xinit \            # XOrg Init 
-    i3-wm \                 # Windows Manager
-    polybar \               # Status Bar
-    dmenu \                 # App selector
-    mesa \                  # Open Source Version of OpenGL
-    --needed --noconfirm
-
-# Audio
-sudo pacman -S \ 
-    alsa-utils \            # Advanced Linux Sound Architecture (ALSA) Components https://alsa.opensrc.org/
-    alsa-plugins \          # ALSA plugins
-    pulseaudio \            # Pulse Audio sound components
-    pulseaudio-alsa \       # ALSA configuration for pulse audio
-    pavucontrol             # Pulse Audio volume control --needed --noconfirm
+sudo pacman -S  alsa-plugins pulseaudio pulseaudio-alsa pavucontrol alsa-utils xf86-video-intel  xorg-server xorg-xinit i3-wm  polybar  dmenu  mesa  --needed --noconfirm
 	
 # Applications
-sudo pacman -S \ 
-    alacritty \             # terminal emulator
-    picom \                 # Compositor
-    git \                   # Version Control System
-    neofetch \              # System Info
-    htop \                  # System monitoring via terminal
-    wget \                  # Remote Content Retrival 
-    feh \                   # Terminal-based image viewer/manipulator 
-    xclip \                 # clipboard manager
-    neovim \                # File Editor 
-    zsh \                   # ZSH Shell
-    p7zip \                 # Zip Conpression Program 
-    brave-bin \             # Web Browser
-    --needed
+sudo pacman -S alacritty picom git neofetch htop wget feh xclip neovim zsh p7zip brave-bin --needed --noconfirm
 
     # lollypop              # Music Player
     # imagemagick           # Command line image manipulation tool
