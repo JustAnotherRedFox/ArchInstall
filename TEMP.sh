@@ -211,7 +211,7 @@ network_installer
 
 #===========================================================
 # Configuring the system.
-info_print "Configuring the system (timezone, system clock, initramfs, Snapper, GRUB)."
+echo "Configuring the system (timezone, system clock, GRUB)."
 arch-chroot /mnt /bin/bash -e <<EOF
 
     # Setting up timezone.
