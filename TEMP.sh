@@ -9,10 +9,10 @@ clear
 kernel="linux"
 
 # Select Internet Connection Handler
-# 1) NetworkManager, Universal network utility (both WiFi and Ethernet, highly recommended)
-# 2) wpa_supplicant: Utility with support for WEP and WPA/WPA2 (WiFi-only, DHCPCD will be automatically installed)
-# 3) dhcpcd: Basic DHCP client (Ethernet connections or VMs)
-network_choise=1
+# networkmanager) NetworkManager, Universal network utility (both WiFi and Ethernet, highly recommended)
+# wpa) wpa_supplicant: Utility with support for WEP and WPA/WPA2 (WiFi-only, DHCPCD will be automatically installed)
+# dhcpcd) dhcpcd: Basic DHCP client (Ethernet connections or VMs)
+network_choise="networkmanager"
 
 # Select a Hostname
 # Default = JustArch
@@ -78,20 +78,20 @@ rootpass_selector () {
 virt_check() {
   hypervisor=$(systemd-detect-virt)
   case $hypervisor in
-    kvm ) echo "KVM has been detected, setting up guest tools."
+    kvm) echo "KVM has been detected, setting up guest tools."
           pacstrap /mnt qemu-guest-agent &>/dev/null
           systemctl enable qemu-guest-agent --root=/mnt &>/dev/null
           ;;
-    vmware )  echo "VMWare Workstation/ESXi has been detected, setting up guest tools."
+    vmware)  echo "VMWare Workstation/ESXi has been detected, setting up guest tools."
               pacstrap /mnt open-vm-tools >/dev/null
               systemctl enable vmtoolsd --root=/mnt &>/dev/null
               systemctl enable vmware-vmblock-fuse --root=/mnt &>/dev/null
               ;;
-    oracle )  echo "VirtualBox has been detected, setting up guest tools."
+    oracle)  echo "VirtualBox has been detected, setting up guest tools."
               pacstrap /mnt virtualbox-guest-utils &>/dev/null
               systemctl enable vboxservice --root=/mnt &>/dev/null
               ;;
-    microsoft ) echo "Hyper-V has been detected, setting up guest tools."
+    microsoft) echo "Hyper-V has been detected, setting up guest tools."
                 pacstrap /mnt hyperv &>/dev/null
                 systemctl enable hv_fcopy_daemon --root=/mnt &>/dev/null
                 systemctl enable hv_kvp_daemon --root=/mnt &>/dev/null
@@ -103,16 +103,16 @@ virt_check() {
 # Installing the chosen networking method to the system (function)
 network_installer () {
   case $network_choice in
-    1 ) echo "Installing and enabling NetworkManager."
+    networkmanager) echo "Installing and enabling NetworkManager."
         pacstrap /mnt networkmanager >/dev/null
         systemctl enable NetworkManager --root=/mnt &>/dev/null
         ;;
-    2 ) echo "Installing and enabling wpa_supplicant and dhcpcd."
+    wpa) echo "Installing and enabling wpa_supplicant and dhcpcd."
         pacstrap /mnt wpa_supplicant dhcpcd >/dev/null
         systemctl enable wpa_supplicant --root=/mnt &>/dev/null
         systemctl enable dhcpcd --root=/mnt &>/dev/null
         ;;
-    3 ) echo "Installing dhcpcd."
+    dhcpcd) echo "Installing dhcpcd."
         pacstrap /mnt dhcpcd >/dev/null
         systemctl enable dhcpcd --root=/mnt &>/dev/null
     esac
