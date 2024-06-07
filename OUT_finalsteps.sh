@@ -169,7 +169,9 @@ echo
 echo "Done!"
 echo
 
-xinit
+# Start Xserver
+# THe startx works as a wrapper around xinit thus using startx makes xinit command unnescessary
+# xinit
 
 # move to /Home and cloning git repository with Dotfiles
 git clone https://github.com/JustAnotherRedFox/.config.git ~/.config
