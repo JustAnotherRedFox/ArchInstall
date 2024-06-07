@@ -215,7 +215,7 @@ echo "Configuring the system (timezone, system clock, GRUB)."
 arch-chroot /mnt /bin/bash -e <<EOF
 
     # Setting up timezone.
-    ln -sf /usr/share/zoneinfo/$(curl -s http://ip-api.com/line?fields=timezone) /etc/localtime &>/dev/null
+    ln -sf /usr/share/zoneinfo/America/Bahia /etc/localtime &>/dev/null
 
     # Setting up clock.
     hwclock --systohc
