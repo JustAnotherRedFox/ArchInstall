@@ -182,7 +182,7 @@ microcode_detector
 
 # Pacstrap (setting up a base sytem onto the new root)
 echo "Installing base system (It may take a while)
-pacstrap -K /mnt base "$kernel" "$microcode" linux-firmware "$kernel"-headers grub efibootmgr reflector sudo &>/dev/null
+pacstrap -K /mnt base "$kernel" "$microcode" linux-firmware "$kernel"-headers grub efibootmgr sudo &>/dev/null
 
 # setting up hostname
 echo "$hostname" > /mnt/etc/hostname
@@ -224,19 +224,10 @@ arch-chroot /mnt /bin/bash -e <<EOF
     locale-gen &>/dev/null
 
     # Generating a new initramfs.
-    mkinitcpio -P &>/dev/null
-
-    # Snapper configuration.
-    umount /.snapshots
-    rm -r /.snapshots
-    snapper --no-dbus -c root create-config /
-    btrfs subvolume delete /.snapshots &>/dev/null
-    mkdir /.snapshots
-    mount -a &>/dev/null
-    chmod 750 /.snapshots
+    # mkinitcpio -P &>/dev/null
 
     # Installing GRUB.
-    grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=GRUB &>/dev/null
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB &>/dev/null
 
     # Creating grub config file.
     grub-mkconfig -o /boot/grub/grub.cfg &>/dev/null
@@ -244,20 +235,20 @@ arch-chroot /mnt /bin/bash -e <<EOF
 EOF
 
 # Setting root password.
-info_print "Setting root password."
+echo "Setting root password."
 echo "root:$rootpass" | arch-chroot /mnt chpasswd
 
 # Setting user password.
 if [[ -n "$username" ]]; then
     echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/etc/sudoers.d/wheel
-    info_print "Adding the user $username to the system with root privilege."
+    echo "Adding the user $username to the system with root privilege."
     arch-chroot /mnt useradd -m -G wheel -s /bin/bash "$username"
-    info_print "Setting user password for $username."
+    echo "Setting user password for $username."
     echo "$username:$userpass" | arch-chroot /mnt chpasswd
 fi
 
 # Boot backup hook.
-info_print "Configuring /boot backup when pacman transactions are made."
+echo "Configuring /boot backup when pacman transactions are made."
 mkdir /mnt/etc/pacman.d/hooks
 cat > /mnt/etc/pacman.d/hooks/50-bootbackup.hook <<EOF
 [Trigger]
@@ -275,23 +266,16 @@ Exec = /usr/bin/rsync -a --delete /boot /.bootbackup
 EOF
 
 # ZRAM configuration.
-info_print "Configuring ZRAM."
+echo "Configuring ZRAM."
 cat > /mnt/etc/systemd/zram-generator.conf <<EOF
 [zram0]
 zram-size = min(ram, 8192)
 EOF
 
 # Pacman eye-candy features.
-info_print "Enabling colours, animations, and parallel downloads for pacman."
+echo "Enabling colours, animations, and parallel downloads for pacman."
 sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/etc/pacman.conf
 
-# Enabling various services.
-info_print "Enabling Reflector, automatic snapshots, BTRFS scrubbing and systemd-oomd."
-services=(reflector.timer snapper-timeline.timer snapper-cleanup.timer btrfs-scrub@-.timer btrfs-scrub@home.timer btrfs-scrub@var-log.timer btrfs-scrub@\\x2esnapshots.timer grub-btrfsd.service systemd-oomd)
-for service in "${services[@]}"; do
-    systemctl enable "$service" --root=/mnt &>/dev/null
-done
-
 # Finishing up.
-info_print "Done, you may now wish to reboot (further changes can be done by chrooting into /mnt)."
+echo "Done, you may now wish to reboot (further changes can be done by chrooting into /mnt)."
 exit
