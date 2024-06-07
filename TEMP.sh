@@ -78,20 +78,20 @@ rootpass_selector () {
 virt_check() {
   hypervisor=$(systemd-detect-virt)
   case $hypervisor in
-    kvm ) info_print "KVM has been detected, setting up guest tools."
+    kvm ) echo "KVM has been detected, setting up guest tools."
           pacstrap /mnt qemu-guest-agent &>/dev/null
           systemctl enable qemu-guest-agent --root=/mnt &>/dev/null
           ;;
-    vmware )  info_print "VMWare Workstation/ESXi has been detected, setting up guest tools."
+    vmware )  echo "VMWare Workstation/ESXi has been detected, setting up guest tools."
               pacstrap /mnt open-vm-tools >/dev/null
               systemctl enable vmtoolsd --root=/mnt &>/dev/null
               systemctl enable vmware-vmblock-fuse --root=/mnt &>/dev/null
               ;;
-    oracle )  info_print "VirtualBox has been detected, setting up guest tools."
+    oracle )  echo "VirtualBox has been detected, setting up guest tools."
               pacstrap /mnt virtualbox-guest-utils &>/dev/null
               systemctl enable vboxservice --root=/mnt &>/dev/null
               ;;
-    microsoft ) info_print "Hyper-V has been detected, setting up guest tools."
+    microsoft ) echo "Hyper-V has been detected, setting up guest tools."
                 pacstrap /mnt hyperv &>/dev/null
                 systemctl enable hv_fcopy_daemon --root=/mnt &>/dev/null
                 systemctl enable hv_kvp_daemon --root=/mnt &>/dev/null
@@ -103,16 +103,16 @@ virt_check() {
 # Installing the chosen networking method to the system (function)
 network_installer () {
   case $network_choice in
-    1 ) info_print "Installing and enabling NetworkManager."
+    1 ) echo "Installing and enabling NetworkManager."
         pacstrap /mnt networkmanager >/dev/null
         systemctl enable NetworkManager --root=/mnt &>/dev/null
         ;;
-    2 ) info_print "Installing and enabling wpa_supplicant and dhcpcd."
+    2 ) echo "Installing and enabling wpa_supplicant and dhcpcd."
         pacstrap /mnt wpa_supplicant dhcpcd >/dev/null
         systemctl enable wpa_supplicant --root=/mnt &>/dev/null
         systemctl enable dhcpcd --root=/mnt &>/dev/null
         ;;
-    3 ) info_print "Installing dhcpcd."
+    3 ) echo "Installing dhcpcd."
         pacstrap /mnt dhcpcd >/dev/null
         systemctl enable dhcpcd --root=/mnt &>/dev/null
     esac
@@ -149,7 +149,7 @@ if ! [[ "${disk_response,,}" =~ ^(yes|y)$ ]]; then
 fi
 
 echo "Wiping $DISK."
-wipefs -af "$DISK" &>/dev/null
+wipefs --all --force "$DISK" &>/dev/null
 sgdisk -Zo "$DISK" &>/dev/null
 
 # Creating a new partition scheme.
