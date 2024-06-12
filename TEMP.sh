@@ -169,41 +169,48 @@ ${DISK}2 : size=4096MiB,type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
 ${DISK}3 : type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
 " | sfdisk ${DEV}
 
+# Format FIle systems
 mkfs.fat -F32 ${DISK}1
-mkswap
+mkswap ${DISK}2
 mkfs.ext4 ${DISK}3
+
+# Mounting Partitions
+mount ${DISK}3 /mnt            # Mount root(/)
+mkdir -p /mnt/boot/efi         # Making efi folder
+mount ${DISK}1 /mnt/boot/efi   # Mounting boot
+swapon ${DISK}2                # activating swap
 #===========================================================
 
 
 #===========================================================
 #======= Method 1 for formating partition ==================
-wipefs --all --force "$DISK" &>/dev/null
-sgdisk -Zo "$DISK" &>/dev/null
+#wipefs --all --force "$DISK" &>/dev/null
+#sgdisk -Zo "$DISK" &>/dev/null
 
 # Creating a new partition scheme.
-echo "Creating the partitions on $DISK."
-parted -s "$DISK" \
-    mklabel gpt \
-    mkpart ESP fat32 1MiB 512MiB \
-    set 1 esp on \
-    mkpart ROOT 513MiB 100%
+#echo "Creating the partitions on $DISK."
+#parted -s "$DISK" \
+#    mklabel gpt \
+#    mkpart ESP fat32 1MiB 512MiB \
+#    set 1 esp on \
+#    mkpart ROOT 513MiB 100%
 
-ESP="/dev/disk/by-partlabel/ESP"
-ROOT="/dev/disk/by-partlabel/ROOT"
+#ESP="/dev/disk/by-partlabel/ESP"
+#ROOT="/dev/disk/by-partlabel/ROOT"
 
 # Informing Kernel About Changes
-partprobe "$DISK"
+#partprobe "$DISK"
 
 # Formating BOOT as Fat32
-mkfs.fat -F32 "$ESP" &>/dev/null
+#mkfs.fat -F32 "$ESP" &>/dev/null
 
 # Formating ROOT as EXT4
-mkfs.ext4 "$ROOT" &>/dev/null
-mount "$ROOT" /mnt
+#mkfs.ext4 "$ROOT" &>/dev/null
+#mount "$ROOT" /mnt
 
 # Setting Up Boot/EFi Partition
-mkdir -p /mnt/boot/efi
-mount "$ESP" /mnt/boot/efi
+#mkdir -p /mnt/boot/efi
+#mount "$ESP" /mnt/boot/efi
 
 #================================================
 
