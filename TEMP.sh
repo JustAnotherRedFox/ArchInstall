@@ -149,6 +149,34 @@ if ! [[ "${disk_response,,}" =~ ^(yes|y)$ ]]; then
 fi
 
 echo "Wiping $DISK."
+
+#===========================================================
+# ============= Method 2 for formating partition ===========
+
+wipefs -af ${DISK} # recommended if you want to swap partition table types
+
+echo "label: gpt
+device: ${DISK}
+unit: sectors
+
+# Efi partition 512MB
+${DISK}1: size=512MiB,type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+
+# Swap Partition 4GB
+${DISK}2 : size=4096MiB,type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
+
+# Root Partition, rest of the space
+${DISK}3 : type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
+" | sfdisk ${DEV}
+
+mkfs.fat -F32 ${DISK}1
+mkswap
+mkfs.ext4 ${DISK}3
+#===========================================================
+
+
+#===========================================================
+#======= Method 1 for formating partition ==================
 wipefs --all --force "$DISK" &>/dev/null
 sgdisk -Zo "$DISK" &>/dev/null
 
@@ -176,6 +204,8 @@ mount "$ROOT" /mnt
 # Setting Up Boot/EFi Partition
 mkdir -p /mnt/boot/efi
 mount "$ESP" /mnt/boot/efi
+
+#================================================
 
 # checking microcode to install
 microcode_detector
