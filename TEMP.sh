@@ -156,9 +156,9 @@ sgdisk -Zo "$DISK" &>/dev/null
 echo "Creating the partitions on $DISK."
 parted -s "$DISK" \
     mklabel gpt \
-    mkpart ESP fat32 1MiB 513MiB \
+    mkpart ESP fat32 1MiB 512MiB \
     set 1 esp on \
-    mkpart ROOT 513MiB 100% \
+    mkpart ROOT 513MiB 100%
 
 ESP="/dev/disk/by-partlabel/ESP"
 ROOT="/dev/disk/by-partlabel/ROOT"
