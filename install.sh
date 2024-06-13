@@ -4,7 +4,7 @@
 clear
 
 # User Account Username
-username="JustAnotherRedFox
+username="JustAnotherRedFox"
 
 # Select Kernel To be Used/Installed
 # linux) stable, Vanilla Linux kernel with a few specific Arch Linux patches applied
