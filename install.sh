@@ -3,6 +3,9 @@
 # clear TTY
 clear
 
+# User Account Username
+username="JustAnotherRedFox
+
 # Select Kernel To be Used/Installed
 # linux) stable, Vanilla Linux kernel with a few specific Arch Linux patches applied
 # linux-lts) longterm, Long-term support (LTS) Linux kernel
@@ -33,13 +36,6 @@ DISK="/dev/sda"
 
 # Setting up a password for the user account (function).
 userpass_selector() {
-  echo "user account Name: "
-  read -r username
-  if [[ -z "$username" ]]; then
-    echo "input a user name"
-    return 1
-  fi
-    
   echo "enter $username password (you're not going to see the password): "
   read -r -s userpass
   if [[ -z "$userpass" ]]; then
@@ -167,7 +163,7 @@ ${DISK}2 : size=4096MiB,type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
 
 # Root Partition, rest of the space
 ${DISK}3 : type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
-" | sfdisk ${DEV}
+" | sfdisk ${DISK}
 
 # Format FIle systems
 mkfs.fat -F32 ${DISK}1
@@ -181,44 +177,11 @@ mount ${DISK}1 /mnt/boot/efi   # Mounting boot
 swapon ${DISK}2                # activating swap
 #===========================================================
 
-
-#===========================================================
-#======= Method 1 for formating partition ==================
-#wipefs --all --force "$DISK" &>/dev/null
-#sgdisk -Zo "$DISK" &>/dev/null
-
-# Creating a new partition scheme.
-#echo "Creating the partitions on $DISK."
-#parted -s "$DISK" \
-#    mklabel gpt \
-#    mkpart ESP fat32 1MiB 512MiB \
-#    set 1 esp on \
-#    mkpart ROOT 513MiB 100%
-
-#ESP="/dev/disk/by-partlabel/ESP"
-#ROOT="/dev/disk/by-partlabel/ROOT"
-
-# Informing Kernel About Changes
-#partprobe "$DISK"
-
-# Formating BOOT as Fat32
-#mkfs.fat -F32 "$ESP" &>/dev/null
-
-# Formating ROOT as EXT4
-#mkfs.ext4 "$ROOT" &>/dev/null
-#mount "$ROOT" /mnt
-
-# Setting Up Boot/EFi Partition
-#mkdir -p /mnt/boot/efi
-#mount "$ESP" /mnt/boot/efi
-
-#================================================
-
 # checking microcode to install
 microcode_detector
 
 # Pacstrap (setting up a base sytem onto the new root)
-echo "Installing base system (It may take a while)
+echo "Installing base system (It may take a while)"
 pacstrap -K /mnt base "$kernel" "$microcode" linux-firmware "$kernel"-headers grub efibootmgr sudo &>/dev/null
 
 # setting up hostname
