@@ -21,7 +21,7 @@ network_choise="networkmanager"
 
 # Select a Hostname
 # Default = JustArch
-hostname="JustArch"
+hostname="JustAnotherArchMachine"
 
 # Select a Locale
 # Default = en_US.UTF-8"
