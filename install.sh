@@ -5,6 +5,8 @@ clear
 
 # User Account Username
 username="JustAnotherRedFox"
+userpass=""
+rootpass=""
 
 # Select Kernel To be Used/Installed
 # linux) stable, Vanilla Linux kernel with a few specific Arch Linux patches applied
@@ -36,38 +38,18 @@ DISK="/dev/sda"
 
 # Setting up a password for the user account (function).
 userpass_selector() {
-  echo "enter $username password (you're not going to see the password): "
-  read -r -s userpass
   if [[ -z "$userpass" ]]; then
-    echo "You need to enter a password for $username, please try again."
-    return 1
+    echo "You need to enter a password for $username, please set a password."
+    exit 1
   fi
-    
-  echo "Please enter the password again (you're not going to see it): " 
-  read -r -s userpass2
-  if [[ "$userpass" != "$userpass2" ]]; then
-    echo "Passwords don't match, please try again."
-    return 1
-  fi
-  return 0
 }
 
 # Setting up a password for the root account (function).
 rootpass_selector () {
-    echo "enter root user password (you're not going to see it): "
-    read -r -s rootpass
     if [[ -z "$rootpass" ]]; then
-        echo "You need to enter a password for the root user, please try again."
-        return 1
+        echo "You need to enter a password for the root user, please set a password."
+        exit 1
     fi
-    
-    echo "Please enter the password again (you're not going to see it): " 
-    read -r -s rootpass2
-    if [[ "$rootpass" != "$rootpass2" ]]; then
-        echo "Passwords don't match, please try again."
-        return 1
-    fi
-    return 0
 }
 
 # Virtualization Check (Function)
@@ -133,8 +115,8 @@ echo
 loadkeys "$kblayout"
 
 # sets up user/root account
-until userpass_selector; do : ; done
-until rootpass_selector; do : ; done
+userpass_selector
+rootpass_selector
 
 # Warn user about deletion of old partition scheme.
 echo "This will delete the current partition table on $DISK once installation starts. Do you agree [y/N]?: "
@@ -277,5 +259,5 @@ echo "Enabling colours, animations, and parallel downloads for pacman."
 sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/etc/pacman.conf
 
 # Finishing up.
-echo "Done, you may now wish to reboot (further changes can be done by chrooting into /mnt)."
+echo "Done, please 'umount -R /mnt' and then reboot (further changes can be done by chrooting into /mnt)."
 exit
