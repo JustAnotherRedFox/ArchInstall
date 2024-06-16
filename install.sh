@@ -259,5 +259,5 @@ echo "Enabling colours, animations, and parallel downloads for pacman."
 sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/etc/pacman.conf
 
 # Finishing up.
-echo "Done, please 'umount -R /mnt' and then reboot (further changes can be done by chrooting into /mnt)."
+echo "Base Linux Install Complete, please 'umount -R /mnt', remove the arch-iso and reboot the machine (further changes can be done by chrooting into /mnt)."
 exit
