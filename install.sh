@@ -17,7 +17,7 @@ kernel="linux"
 # networkmanager) NetworkManager, Universal network utility (both WiFi and Ethernet, highly recommended)
 # wpa) wpa_supplicant: Utility with support for WEP and WPA/WPA2 (WiFi-only, DHCPCD will be automatically installed)
 # dhcpcd) dhcpcd: Basic DHCP client (Ethernet connections or VMs)
-network_choise="networkmanager"
+network_choice="networkmanager"
 
 # Select a Hostname
 # Default = JustArch
@@ -82,7 +82,7 @@ virt_check() {
 network_installer () {
   case $network_choice in
     networkmanager) echo "Installing and enabling NetworkManager."
-        pacstrap /mnt networkmanager >/dev/null
+        pacstrap /mnt networkmanager network-manager-applet dialog &>/dev/null
         systemctl enable NetworkManager --root=/mnt &>/dev/null
         ;;
     wpa) echo "Installing and enabling wpa_supplicant and dhcpcd."
